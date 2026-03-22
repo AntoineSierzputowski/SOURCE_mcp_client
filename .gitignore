@@ -41,3 +41,4 @@ coverage.xml
 
 # datasets
 datasets/
+__pycache__
