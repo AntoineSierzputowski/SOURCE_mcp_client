@@ -38,22 +38,6 @@
         },
         "required": []
       }
-    },
-    {
-      "name": "get_molecules_by_id",
-      "description": "Get full details of a single molecules record by its identifier.",
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "molecule_id": {
-            "type": "string",
-            "description": "Unique identifier of the molecule"
-          }
-        },
-        "required": [
-          "molecule_id"
-        ]
-      }
     }
   ]
 }

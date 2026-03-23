@@ -18,7 +18,6 @@ def mysql_type_to_json(data_type):
 
 def generate_mcp_json(config):
     tables = {}
-    print('schema: ', config.schema)
     for entry in config.schema:
         table = entry["table"]
         if table not in tables:
@@ -57,27 +56,6 @@ def generate_mcp_json(config):
                 }
             })
 
-        pk = None
-        for col in columns:
-            if col["is_primary_key"]:
-                pk = col
-                break
-
-        if pk:
-            tools.append({
-                "name": f"get_{table_name}_by_id",
-                "description": f"Get full details of a single {table_name} record by its identifier.",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        pk["column"]: {
-                            "type": mysql_type_to_json(pk["data_type"]),
-                            "description": pk["description"]
-                        }
-                    },
-                    "required": [pk["column"]]
-                }
-            })
     mcp = {
         "server": {
             "name": config.server_name,
