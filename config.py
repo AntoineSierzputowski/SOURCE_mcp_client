@@ -11,6 +11,7 @@ class SourceConfig:
         self.server_name = raw["server"]["name"]
         self.server_description = raw["server"]["description"]
 
+# check server database type (mysql , mongodb...) to create function to manage each type of db
         # tables config
         self.tables_config = raw["tables"]
 

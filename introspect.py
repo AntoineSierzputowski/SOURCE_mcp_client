@@ -1,4 +1,5 @@
-def introspect_schema(config):
+def introspect_schema(config): # to do => check the value of database type
+# create function for each DB
     cursor = config.db_connection.cursor(dictionary=True)
     cursor.execute("""
         SELECT TABLE_NAME, COLUMN_NAME, DATA_TYPE, IS_NULLABLE, COLUMN_KEY
