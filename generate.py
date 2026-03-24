@@ -47,7 +47,7 @@ def generate_mcp_json(config):
 
         if search_properties:
             tools.append({
-                "name": f"search_{table_name}",
+                "name": f"SQL_Database_{table_name}", # check if the name of the table is relevant
                 "description": f"Search {table_name}. {table_conf.get('description', '')}",
                 "inputSchema": {
                     "type": "object",
