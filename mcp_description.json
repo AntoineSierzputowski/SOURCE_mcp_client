@@ -5,7 +5,8 @@
   },
   "tools": [
     {
-      "name": "search_molecules",
+      "name": "SQL_Database_molecules",
+      "table": "molecules",
       "description": "Search molecules. Molecules characterized by the laboratory with their biological properties and clinical advancement.",
       "inputSchema": {
         "type": "object",

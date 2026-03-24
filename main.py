@@ -17,5 +17,6 @@ def main():
     with open("mcp_description.json", "w") as f:
         json.dump(mcp, f, indent=2, ensure_ascii=False) 
   #   start_server(config, mcp)
+    start_server(config, mcp)
 if __name__ == "__main__":
     main()

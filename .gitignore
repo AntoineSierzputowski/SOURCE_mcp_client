@@ -42,3 +42,5 @@ coverage.xml
 # datasets
 datasets/
 __pycache__
+
+.env
