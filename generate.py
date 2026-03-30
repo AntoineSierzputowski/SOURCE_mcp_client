@@ -1,21 +1,3 @@
-def mysql_type_to_json(data_type):
-    """Convert MySQL data type to JSON Schema type"""
-    mapping = {
-        "int": "integer",
-        "tinyint": "boolean",
-        "bigint": "integer",
-        "float": "number",
-        "double": "number",
-        "decimal": "number",
-        "varchar": "string",
-        "text": "string",
-        "date": "string",
-        "datetime": "string",
-        "timestamp": "string",
-    }
-    return mapping.get(data_type, "string")
-
-
 def generate_mcp_json(config):
     tables = {}
     for entry in config.schema:
@@ -35,7 +17,7 @@ def generate_mcp_json(config):
                 continue
 
             prop = {
-                "type": mysql_type_to_json(col["data_type"]),
+                "type": config.db_integration.type_to_json(col["data_type"]),
                 "description": col["description"]
             }
 
@@ -47,7 +29,7 @@ def generate_mcp_json(config):
 
         if search_properties:
             tools.append({
-                "name": f"SQL_Database_{table_name}",
+                "name": f"Database_{table_name}",
                 "table": table_name,
                 "description": f"Search {table_name}. {table_conf.get('description', '')}",
                 "inputSchema": {

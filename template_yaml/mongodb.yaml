@@ -1,0 +1,66 @@
+database:
+  type: mongodb
+  host: 127.0.0.1
+  port: 27017
+  name: smart_building
+  user: ""
+  password: ""
+
+server:
+  name: "Smart Building BACnet"
+  description: >
+    BACnet sensor telemetry from a building management system (BMS/GTB).
+    Each document represents a full data collection at a given point in time
+    for a building: origin metadata (building, timestamp, API account) and a
+    list of measurements from physical BACnet devices (HVAC, lighting,
+    electricity, etc.), each with its value, unit, and health status.
+
+collections:
+  readings:
+    expose: true
+    description: >
+      One document = one complete BACnet collection at instant T for a given building.
+      Contains origin metadata and an array of measurements from physical devices.
+    fields:
+      building_id:
+        expose: true
+        description: "Identifier of the building the measurements come from."
+      collected_at:
+        expose: true
+        description: "Timestamp of when the collection was performed."
+      source_account:
+        expose: true
+        description: "API account that submitted the collection."
+      readings.device_id:
+        expose: true
+        description: "Numeric identifier of the BACnet device."
+      readings.device_name:
+        expose: true
+        description: "Name of the BACnet device (e.g. CTL-ET2-SALLES-REU)."
+      readings.device_ip:
+        expose: true
+        description: "Network IP address of the BACnet device."
+      readings.object_type:
+        expose: true
+        description: "BACnet object type (e.g. binaryInput, analogInput, multiStateValue)."
+      readings.object_instance:
+        expose: true
+        description: "BACnet object instance number."
+      readings.object_name:
+        expose: true
+        description: "BACnet object name (e.g. ET2_REU_A_DetPresence)."
+      readings.present_value:
+        expose: true
+        description: "Measured value at collection time."
+      readings.unit:
+        expose: true
+        description: "Unit of the measured value (°C, %, lux, etc.). Empty string if unitless."
+      readings.description:
+        expose: true
+        description: "Human-readable description of what the point measures (e.g. Détecteur présence salle réunion A)."
+      readings.status_flags:
+        expose: true
+        description: "Health status of the point: normal, alarm, fault, or out_of_service."
+      readings.out_of_service:
+        expose: true
+        description: "True if the BACnet point is currently out of service."

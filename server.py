@@ -20,7 +20,6 @@ def _register(mcp, config, tool_def):
         entry["column"] for entry in config.schema
         if entry["table"] == table_name
     ]
-    select_columns = ", ".join(exposed_columns)
 
     filters_doc = "\n".join(
         f"  - {name} ({prop['type']}): {prop['description']}"
@@ -32,25 +31,14 @@ def _register(mcp, config, tool_def):
     )
 
     _table = table_name
-    _columns = select_columns
+    _columns = exposed_columns
     _props = properties
     _conn = config.db_connection
+    _integration = config.db_integration
 
     def handler(query: str = "{}") -> str:
         parsed = json.loads(query)
-        cursor = _conn.cursor(dictionary=True)
-
-        sql = f"SELECT {_columns} FROM `{_table}` WHERE 1=1"
-        params = []
-
-        for param_name, value in parsed.items():
-            if value is not None and param_name in _props:
-                sql += f" AND `{param_name}` = %s"
-                params.append(value)
-
-        cursor.execute(sql, params)
-        results = cursor.fetchall()
-        cursor.close()
+        results = _integration.execute_query(_conn, _table, _columns, _props, parsed)
         return json.dumps(results, default=str)
 
     handler.__name__ = tool_name

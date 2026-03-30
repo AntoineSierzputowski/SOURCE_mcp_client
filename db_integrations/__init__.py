@@ -1,0 +1,11 @@
+from . import mysql
+from . import mongodb
+
+
+def get_integration(db_type: str):
+    if db_type == "mysql":
+        return mysql
+    elif db_type == "mongodb":
+        return mongodb
+    else:
+        raise ValueError(f"Unsupported database type: '{db_type}'. Supported: mysql, mongodb")
