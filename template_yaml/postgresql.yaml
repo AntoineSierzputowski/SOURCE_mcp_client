@@ -4,7 +4,7 @@ database:
   port: 5432
   name: greenhouse
   user: reader
-  password: ""
+  password: "reader_greenhouse"
 
 server:
   name: "Greenhouse Monitoring"
