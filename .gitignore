@@ -44,3 +44,6 @@ datasets/
 __pycache__
 
 .env
+
+
+mcp_description.json
