@@ -12,6 +12,7 @@ class SourceConfig:
 
         self.server_name = raw["server"]["name"]
         self.server_description = raw["server"]["description"]
+        self.max_rows = raw["server"].get("max_rows", 30)
         # mysql uses "tables", mongoDB uses "collections"
         self.tables_config = raw.get("collections") or raw.get("tables", {})
 

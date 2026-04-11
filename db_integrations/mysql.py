@@ -77,7 +77,7 @@ def type_to_json(data_type: str) -> str:
     return mapping.get(data_type, "string")
 
 
-def execute_query(conn, table: str, columns: list, properties: dict, parsed: dict) -> list:
+def execute_query(conn, table: str, columns: list, properties: dict, parsed: dict, limit: int) -> list:
     select_columns = ", ".join(f"`{col}`" for col in columns)
     cursor = conn.cursor(dictionary=True)
 
@@ -88,6 +88,8 @@ def execute_query(conn, table: str, columns: list, properties: dict, parsed: dic
         if value is not None and param_name in properties:
             sql += f" AND `{param_name}` = %s"
             params.append(value)
+
+    sql += f" LIMIT {limit}"
 
     cursor.execute(sql, params)
     results = cursor.fetchall()

@@ -86,7 +86,7 @@ def type_to_json(data_type: str) -> str:
     return mapping.get(data_type, "string")
 
 
-def execute_query(conn, collection_name: str, fields: list, properties: dict, parsed: dict) -> list:
+def execute_query(conn, collection_name: str, fields: list, properties: dict, parsed: dict, limit: int) -> list:
     collection = conn[collection_name]
 
     mongo_filter = {
@@ -97,4 +97,4 @@ def execute_query(conn, collection_name: str, fields: list, properties: dict, pa
     projection = {field: 1 for field in fields}
     projection["_id"] = 0
 
-    return list(collection.find(mongo_filter, projection))
+    return list(collection.find(mongo_filter, projection).limit(limit))

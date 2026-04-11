@@ -35,10 +35,11 @@ def _register(mcp, config, tool_def):
     _props = properties
     _conn = config.db_connection
     _integration = config.db_integration
+    _limit = config.tables_config[table_name].get("max_rows", config.max_rows)
 
     def handler(query: str = "{}") -> str:
         parsed = json.loads(query)
-        results = _integration.execute_query(_conn, _table, _columns, _props, parsed)
+        results = _integration.execute_query(_conn, _table, _columns, _props, parsed, _limit)
         return json.dumps(results, default=str)
 
     handler.__name__ = tool_name
